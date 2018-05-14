@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace TodoApi.Controllers
@@ -46,16 +47,11 @@ namespace TodoApi.Controllers
           return new OkObjectResult(jwt);
         }
 
+        [Authorize(Policy = "ApiUser")]
         [HttpPost("validate")]
-        public async Task<IActionResult> Validate([FromBody]string token)
+        public async Task<IActionResult> Validate()
         {
-          //to do: really validate
-            if (!string.IsNullOrEmpty(token))
-            {
-              return new OkObjectResult("Success");
-            }
-
-            return BadRequest(Errors.AddErrorToModelState("login_failure", "Unauthorized.", ModelState));
+          return new OkObjectResult("Valid");
         }
 
         private async Task<ClaimsIdentity> GetClaimsIdentity(string userName, string password)
