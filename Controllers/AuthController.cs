@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
- 
+
 
 namespace TodoApi.Controllers
 {
@@ -44,6 +44,18 @@ namespace TodoApi.Controllers
 
           var jwt = await Tokens.GenerateJwt(identity, _jwtFactory, credentials.UserName, _jwtOptions, new JsonSerializerSettings { Formatting = Formatting.Indented });
           return new OkObjectResult(jwt);
+        }
+
+        [HttpPost("validate")]
+        public async Task<IActionResult> Validate([FromBody]string token)
+        {
+          //to do: really validate
+            if (!string.IsNullOrEmpty(token))
+            {
+              return new OkObjectResult("Success");
+            }
+
+            return BadRequest(Errors.AddErrorToModelState("login_failure", "Unauthorized.", ModelState));
         }
 
         private async Task<ClaimsIdentity> GetClaimsIdentity(string userName, string password)
