@@ -27,9 +27,10 @@ namespace TodoApi.Controllers
                 _context.TodoItems.Add(new TodoItem { Name = "Item1" });
                 _context.SaveChanges();
             }
-        }       
+        }
 
         [HttpGet]
+        [Route("getall")]
         public IEnumerable<TodoItem> GetAll()
         {
             return _context.TodoItems.ToList();
@@ -97,6 +98,6 @@ namespace TodoApi.Controllers
             return new OkObjectResult("Successfully deleted");
         }
 
-        
+
     }
 }
