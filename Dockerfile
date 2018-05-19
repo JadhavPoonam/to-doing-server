@@ -7,4 +7,4 @@ RUN dotnet publish -c Release -o output
 FROM microsoft/aspnetcore:2.0
 WORKDIR /app
 COPY --from=build /build/output .
-ENTRYPOINT ["dotnet", "To Do.dll"]
+ENTRYPOINT ["dotnet", "TO Do.dll"]
