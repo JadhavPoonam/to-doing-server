@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  api:
+    image: todo_server_image
+    container_name: todo_server_container
+    build:
+      context: .
+    ports:
+      - 5000:80
